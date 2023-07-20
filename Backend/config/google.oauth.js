@@ -36,11 +36,9 @@ passport.use(
 		
 				  const data = await UserModel.create(newUser);
 		
-				  request.res.setHeader("x-access-token", accessToken);
 		
 				  return done(null, newUser);
 				} else {
-				  request.res.setHeader("x-access-token", accessToken);
 		
 				  return done(null, cUser);
 				}
