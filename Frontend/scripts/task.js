@@ -3,7 +3,7 @@ let projectid = localStorage.getItem("projectId") || " "
 
 
 const user1 = JSON.parse(sessionStorage.getItem("user")) || "";
-// let token1 = localStorage.getItem("token") || ""
+let token = localStorage.getItem("token")
 
 let task = document.querySelector(".create-task")
 
@@ -23,7 +23,7 @@ const projectinputtitle = document.getElementById("project-title-task-form")
 const assignBySelect = document.getElementById("assignby");
 const statusinput = document.getElementById("status")
 
-let projecttitlename = localStorage.getItem("projecttitle") || "";
+
 
 
 
@@ -223,7 +223,8 @@ async function toggleDropdown3(createTaskform) {
         option.text = employee.name;
         assignBySelect.appendChild(option);
     });
-
+    let projecttitlename = localStorage.getItem("projecttitle") ;
+    console.log(projecttitlename)
     // Show or hide the create task form
     if (createTaskform.style.display === 'none') {
         createTaskform.style.display = 'block';

@@ -1,4 +1,6 @@
 // filter Dropdown function
+let token = localStorage.getItem("token")
+
 const filterDropdown = document.querySelector('#filter');
 filterDropdown.addEventListener('change', async() => {
   const filterOption = filterDropdown.value

@@ -1,4 +1,5 @@
 const user2 = JSON.parse(sessionStorage.getItem("user")) || "";
+const token = localStorage.getItem("token")
 
 let taskId = localStorage.getItem("taskId") || ""
 

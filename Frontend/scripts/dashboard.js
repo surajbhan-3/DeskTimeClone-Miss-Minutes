@@ -55,32 +55,35 @@ bellicon.addEventListener("click",()=>{
 })
 let username = document.getElementById("username")
 const userlogo = document.getElementById("userlogo");
-
-const user = JSON.parse(localStorage.getItem("user")) ;
-console.log(user)
-if(user === undefined || user=== null){
-  const urlParams = new URLSearchParams(window.location.search)
+const urlParams = new URLSearchParams(window.location.search)
   let userID = urlParams.get("userID")
-  fetch(`http://localhost:8080/user/get/${userID}`)
-  .then((res)=>res.json())
-  .then((data)=>{
-    console.log(data.user)
-    const user = {
-      name: data.user.name,
-      role: data.user.role,
-      assignedTasks: data.user.assignedTasks || [],
-      assignedProjects: data.user.assignedProjects || [],
-    };
-    localStorage.setItem("user", JSON.stringify(user));
-    username.textContent = data.user.name
-    userlogo.textContent=username.textContent.charAt(0).toUpperCase();
-  }).catch((err)=>{
-    console.log(err)
-  })
-}else{
-  username.textContent = user.name
-  userlogo.textContent = username.textContent.charAt(0).toUpperCase();
-}
+  let accessToken = urlParams.get("accesstoken");
+  
+  if(userID && accessToken){
+    fetch(`http://localhost:8080/user/get/${userID}`)
+    .then((res)=>res.json())
+    .then((data)=>{
+      console.log(data.user)
+      const user = {
+        name: data.user.name,
+        role: data.user.role,
+        assignedTasks: data.user.assignedTasks || [],
+        assignedProjects: data.user.assignedProjects || [],
+      };
+      sessionStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("token", accessToken);
+      username.textContent = data.user.name
+      userlogo.textContent=username.textContent.charAt(0).toUpperCase();
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }else{
+    const user = JSON.parse(sessionStorage.getItem("user"))
+    username.textContent = user.name
+    userlogo.textContent = username.textContent.charAt(0).toUpperCase();
+    let token = localStorage.getItem("token")
+  }
+
 
 
 function toggleDropdown1(dropdown1) {
@@ -90,10 +93,6 @@ function toggleDropdown1(dropdown1) {
     dropdown1.style.display = 'none';
   }
 }
-
-let token = localStorage.getItem("token") || ""
-console.log(token)
-
 
 
 const logout = document.getElementById("logout")
@@ -133,7 +132,3 @@ project_chat_page.addEventListener("click",()=>{
   window.location.href= "./chat.html"
 })
 
-window.onload=()=>{
-  let token = localStorage.getItem("token");
-  
-}

@@ -3,7 +3,7 @@ let emailInput = document.getElementById("email");
 let passwordInput = document.getElementById("password");
 
 
-const user = JSON.parse(localStorage.getItem("user")) || "";
+const user = JSON.parse(sessionStorage.getItem("user")) || "";
 
 // const url ="https://nodejs-production-1836.up.railway.app/"
 
@@ -33,7 +33,7 @@ form.addEventListener("submit", (e) => {
               assignedTasks: data.user.assignedTasks || [],
               assignedProjects: data.user.assignedProjects || [],
             };
-            localStorage.setItem("user", JSON.stringify(user));
+            sessionStorage.setItem("user", JSON.stringify(user));
             localStorage.setItem("token", data.accessToken);
              window.location.href = "./dashboard.html";
         }else{

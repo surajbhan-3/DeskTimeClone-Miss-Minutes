@@ -1,5 +1,5 @@
 const form = document.querySelector("form")
-
+let token = localStorage.getItem("token")
 form.addEventListener("submit",(e)=>{
     e.preventDefault();
 
