@@ -3,9 +3,9 @@ let emailInput = document.getElementById("email");
 let passwordInput = document.getElementById("password");
 
 
-const user = JSON.parse(sessionStorage.getItem("user")) || "";
+const user = JSON.parse(localStorage.getItem("user")) || "";
 
-const url ="https://nodejs-production-1836.up.railway.app/"
+// const url ="https://nodejs-production-1836.up.railway.app/"
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -13,7 +13,7 @@ form.addEventListener("submit", (e) => {
     const email = emailInput.value;
     const password = passwordInput.value;
   
-    fetch(`https://nodejs-production-1836.up.railway.app/user/login`,{
+    fetch(`http://localhost:8080/user/login`,{
       method: "POST",
       body: JSON.stringify({email, password }),
       headers: {
@@ -33,7 +33,7 @@ form.addEventListener("submit", (e) => {
               assignedTasks: data.user.assignedTasks || [],
               assignedProjects: data.user.assignedProjects || [],
             };
-            sessionStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("user", JSON.stringify(user));
             localStorage.setItem("token", data.accessToken);
              window.location.href = "./dashboard.html";
         }else{

@@ -53,13 +53,34 @@ bellicon.addEventListener("click",()=>{
        }
     }
 })
-
-const user = JSON.parse(sessionStorage.getItem("user")) || "";
-console.log(user.name)
 let username = document.getElementById("username")
-username.textContent = user.name
 const userlogo = document.getElementById("userlogo");
-userlogo.textContent = username.textContent.charAt(0).toUpperCase();
+
+const user = JSON.parse(localStorage.getItem("user")) ;
+console.log(user)
+if(user === undefined || user=== null){
+  const urlParams = new URLSearchParams(window.location.search)
+  let userID = urlParams.get("userID")
+  fetch(`http://localhost:8080/user/get/${userID}`)
+  .then((res)=>res.json())
+  .then((data)=>{
+    console.log(data.user)
+    const user = {
+      name: data.user.name,
+      role: data.user.role,
+      assignedTasks: data.user.assignedTasks || [],
+      assignedProjects: data.user.assignedProjects || [],
+    };
+    localStorage.setItem("user", JSON.stringify(user));
+    username.textContent = data.user.name
+    userlogo.textContent=username.textContent.charAt(0).toUpperCase();
+  }).catch((err)=>{
+    console.log(err)
+  })
+}else{
+  username.textContent = user.name
+  userlogo.textContent = username.textContent.charAt(0).toUpperCase();
+}
 
 
 function toggleDropdown1(dropdown1) {
