@@ -3,7 +3,7 @@ let projectid = localStorage.getItem("projectId") || " "
 
 
 const user1 = JSON.parse(sessionStorage.getItem("user")) || "";
-// let token1 = localStorage.getItem("token") || ""
+let token = localStorage.getItem("token")
 
 let task = document.querySelector(".create-task")
 
@@ -23,7 +23,7 @@ const projectinputtitle = document.getElementById("project-title-task-form")
 const assignBySelect = document.getElementById("assignby");
 const statusinput = document.getElementById("status")
 
-let projecttitlename = localStorage.getItem("projecttitle") || "";
+
 
 
 
@@ -48,7 +48,7 @@ window.addEventListener("load", () => {
 
 async function fetchdata() {
     try {
-        let res = await fetch(`https://nodejs-production-1836.up.railway.app/project/details/${projectid}`, {
+        let res = await fetch(`http://localhost:8080/project/details/${projectid}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -85,7 +85,7 @@ async function fetchdata() {
 
 async function fetchdata1() {
     try {
-        let res = await fetch(`https://nodejs-production-1836.up.railway.app/task/project/${projectid}`, {
+        let res = await fetch(`http://localhost:8080/task/project/${projectid}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -126,7 +126,7 @@ function displayData(data) {
         const formattedDate = date.toLocaleString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
         CreatedOn.innerText = formattedDate;
 
-        await fetch(`https://nodejs-production-1836.up.railway.app/user/${element.createdBy}`, {
+        await fetch(`http://localhost:8080/user/${element.createdBy}`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -139,7 +139,7 @@ function displayData(data) {
             console.log(error)
         })
 
-        await fetch(`https://nodejs-production-1836.up.railway.app/user/${element.assignedTo}`, {
+        await fetch(`http://localhost:8080/user/${element.assignedTo}`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -181,7 +181,7 @@ button.addEventListener("click", function() {
 
 async function fetchdata2() {
     try {
-        let res = await fetch(`https://nodejs-production-1836.up.railway.app/task/${projectid}/users`, {
+        let res = await fetch(`http://localhost:8080/task/${projectid}/users`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -208,7 +208,7 @@ async function fetchdata2() {
 
 async function toggleDropdown3(createTaskform) {
     
-    const response = await fetch('https://nodejs-production-1836.up.railway.app/user/employee', {
+    const response = await fetch('http://localhost:8080/user/employee', {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `${token}`
@@ -223,7 +223,8 @@ async function toggleDropdown3(createTaskform) {
         option.text = employee.name;
         assignBySelect.appendChild(option);
     });
-
+    let projecttitlename = localStorage.getItem("projecttitle") ;
+    console.log(projecttitlename)
     // Show or hide the create task form
     if (createTaskform.style.display === 'none') {
         createTaskform.style.display = 'block';
@@ -257,7 +258,7 @@ formEl.addEventListener("submit", async (event) => {
       projectId 
     };
   console.log(requestBody)
-    const response = await fetch(`https://nodejs-production-1836.up.railway.app/task/create/${projectId}`, {
+    const response = await fetch(`http://localhost:8080/task/create/${projectId}`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -299,7 +300,7 @@ formEl.addEventListener("submit", async (event) => {
 
   projectdelete .addEventListener("click", () => {
 
-    fetch(`https://nodejs-production-1836.up.railway.app/task/${projectid}`, {
+    fetch(`http://localhost:8080/task/${projectid}`, {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',

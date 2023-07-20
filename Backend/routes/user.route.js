@@ -26,6 +26,15 @@ userRoute.get("/:id",async(req,res)=>{
         res.send(err.message)
     }
 })
+userRoute.get("/get/:id",async(req,res)=>{
+    const id = req.params.id;
+    try {
+        const user = await UserModel.findOne({_id:id})
+        res.status(200).send({"user":user})
+    } catch (err) {
+        res.send(err.message)
+    }
+})
 
 userRoute.get("/",async(req,res)=>{
     try {

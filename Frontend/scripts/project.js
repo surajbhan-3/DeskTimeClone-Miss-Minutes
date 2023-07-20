@@ -1,9 +1,11 @@
 // filter Dropdown function
+let token = localStorage.getItem("token")
+
 const filterDropdown = document.querySelector('#filter');
 filterDropdown.addEventListener('change', async() => {
   const filterOption = filterDropdown.value
   try {
-    let res = await fetch(`https://nodejs-production-1836.up.railway.app/project/`, {
+    let res = await fetch(`http://localhost:8080/project/`, {
       method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -47,7 +49,7 @@ let search = document.getElementById("search")
 let searchbtn = document.getElementById("searchbtn")
 searchbtn.addEventListener("click",async()=>{
   try {
-    let res = await fetch(`https://nodejs-production-1836.up.railway.app/project/searchProject/${search.value}`, {
+    let res = await fetch(`http://localhost:8080/project/searchProject/${search.value}`, {
       method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -87,7 +89,7 @@ window.addEventListener("load",()=>{
 
 async function fetchdata() {
     try {
-      let res = await fetch(`https://nodejs-production-1836.up.railway.app/project/`, {
+      let res = await fetch(`http://localhost:8080/project/`, {
         method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -188,7 +190,7 @@ async function displaytables(data){
 
 async function getemp(emp){
   try {
-    await fetch(`https://nodejs-production-1836.up.railway.app/user/employee`,{
+    await fetch(`http://localhost:8080/user/employee`,{
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -211,7 +213,7 @@ async function getemp(emp){
 
 async function getuser(id){
     let name ;
-    await fetch(`https://nodejs-production-1836.up.railway.app/user/${id}`,{
+    await fetch(`http://localhost:8080/user/${id}`,{
       method: "GET",
       headers: {
         "Content-Type": "application/json",

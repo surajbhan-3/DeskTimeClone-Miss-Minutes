@@ -1,4 +1,5 @@
 const user2 = JSON.parse(sessionStorage.getItem("user")) || "";
+const token = localStorage.getItem("token")
 
 let taskId = localStorage.getItem("taskId") || ""
 
@@ -39,7 +40,7 @@ window.addEventListener("load", () => {
 
 async function fetchdata() {
     try {
-        let res = await fetch(`https://nodejs-production-1836.up.railway.app/task/${taskId}`, {
+        let res = await fetch(`http://localhost:8080/task/${taskId}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -79,7 +80,7 @@ async function fetchdata() {
         taskdetailtotaltime.innerText = totalTime+ "Hrs";
         
 
-        await fetch(`https://nodejs-production-1836.up.railway.app/user/${data.task.createdBy}`, {
+        await fetch(`http://localhost:8080/user/${data.task.createdBy}`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -92,7 +93,7 @@ async function fetchdata() {
             console.log(error)
         })
 
-        await fetch(`https://nodejs-production-1836.up.railway.app/user/${data.task.assignedTo}`, {
+        await fetch(`http://localhost:8080/user/${data.task.assignedTo}`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -117,7 +118,7 @@ async function fetchdata() {
 
 task1delete.addEventListener("click", async () => {
   console.log("hello")
-    await fetch(`https://nodejs-production-1836.up.railway.app/task/delete/${taskId}`, {
+    await fetch(`http://localhost:8080/task/delete/${taskId}`, {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',

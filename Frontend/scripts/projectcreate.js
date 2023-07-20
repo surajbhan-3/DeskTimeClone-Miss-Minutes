@@ -1,5 +1,5 @@
 const form = document.querySelector("form")
-
+let token = localStorage.getItem("token")
 form.addEventListener("submit",(e)=>{
     e.preventDefault();
 
@@ -7,7 +7,7 @@ form.addEventListener("submit",(e)=>{
     let description = document.getElementById("description").value;
     
 
-    fetch(`https://nodejs-production-1836.up.railway.app/project/create`,{
+    fetch(`http://localhost:8080/project/create`,{
         method:"POST",
         body:JSON.stringify({name,description}),
         headers:{
