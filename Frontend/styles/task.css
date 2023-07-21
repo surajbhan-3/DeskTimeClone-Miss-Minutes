@@ -149,11 +149,11 @@ th {
   border: 1px solid black;
 }
 
-#createTaskform {
+#createTaskform ,#edit-task-form{
   display: none;
 }
 
-#create-task-form {
+#create-task-form,#edit-task-form {
   width: 500px;
   position: fixed;
   top: 80px;
@@ -181,7 +181,7 @@ th {
 
 #create-task-form input[type="text"],
 #create-task-form textarea,
-#create-task-form select {
+#create-task-form select ,#edit-task-form select{
   width: 300px;
   padding: 5px;
   border: 1px solid #ccc;
@@ -189,7 +189,7 @@ th {
   margin-bottom: 10px;
 }
 
-#create-task-form input[type="submit"] {
+#create-task-form input[type="submit"] ,#edit-task-form input[type="submit"]{
   background-color: #4caf50;
   color: white;
   padding: 10px 20px;
@@ -199,7 +199,7 @@ th {
   margin-top: 20px;
 }
 
-#create-task-form input[type="submit"]:hover {
+#create-task-form input[type="submit"]:hover ,#edit-task-form input[type="submit"]:hover{
   background-color: #45a049;
 }
 

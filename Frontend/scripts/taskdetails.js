@@ -12,7 +12,9 @@ let task1delete = document.querySelector(".Edit1")
 if (user2.role === "Employee") {
     task1delete.style.display="none"
 }
-
+if (user2.role !== "Employee") {
+    task1edit.style.display="none"
+}
 let backbtn2 = document.getElementById("back-btn2")
 
 backbtn2.addEventListener("click", () => {
@@ -53,20 +55,22 @@ async function fetchdata() {
         title2.innerText = data.task.title
 
         const startDate = new Date(data.task.startTime);
-        const currentDate = new Date()
-        const endDate = new Date(data.task.endTime)
-        var totalDays = 0;
-        var totalTime = 0;
-        
-
-        
-        if(data.task.endTime){
-            totalDays = currentDate.getTime()-endDate.getTime();
-            totalTime = Math.floor(totalDays / (1000 * 60 * 60));
-            taskdetailendtime.innerText = endDate;
-        }else{
-            totalDays = currentDate.getTime()-startDate.getTime();
-            totalTime = Math.floor(totalDays / (1000 * 60 * 60));
+        const currentDate = new Date();
+        const endDate = data.task.endTime ? new Date(data.task.endTime) : currentDate;
+    
+        const formattedDate1 = endDate.toLocaleDateString("en-US", {
+          month: "short",
+          day: "2-digit",
+          year: "numeric",
+        });
+    
+        let totalDays = currentDate.getTime() - startDate.getTime();
+        let totalTime = Math.floor(totalDays / (1000 * 60 * 60));
+    
+        if (data.task.endTime) {
+          totalDays = endDate.getTime() - startDate.getTime();
+          totalTime = Math.floor(totalDays / (1000 * 60 * 60));
+          taskdetailendtime.innerText = formattedDate1;
         }
 
         const formattedDate = startDate.toLocaleDateString("en-US", {
@@ -74,9 +78,10 @@ async function fetchdata() {
             day: "2-digit",
             year: "numeric"
         });
-
+       
         taskcreateddate.innerText = formattedDate;
         taskdetailsstatus.innerText = data.task.status;
+        let st = data.task.status
         taskdetailtotaltime.innerText = totalTime+ "Hrs";
         
 
@@ -102,6 +107,16 @@ async function fetchdata() {
           }).then(res => res.json())
         .then(data => {
             taskdetailassignto.innerText=data.user
+            if(user2.role === "Employee"){
+                if(data.user!==user2.name){
+                    task1edit.style.display="none"
+                }else{
+                    task1edit.addEventListener("click",()=>{
+                        document.getElementById("edit-task-form").style.display="block"
+                        document.getElementById("status-edit").value = st
+                    })
+                }
+            }
         }).catch((error) => {
             console.log(error)
         })
@@ -116,9 +131,9 @@ async function fetchdata() {
 
 
 
-task1delete.addEventListener("click", async () => {
-  console.log("hello")
-    await fetch(`http://localhost:8080/task/delete/${taskId}`, {
+task1delete.addEventListener("click", () => {
+  
+     fetch(`http://localhost:8080/task/delete/${taskId}`, {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',
@@ -143,3 +158,25 @@ task1delete.addEventListener("click", async () => {
 })
 
 
+document.getElementById("edit-task-form").addEventListener("submit",(e)=>{
+    e.preventDefault()
+    let status = document.getElementById("status-edit").value
+    fetch(`http://localhost:8080/task/${taskId}`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${token}`
+        },body:JSON.stringify({status})
+    }).then(res => res.json())
+        .then(data => {
+            console.log(data)
+            console.log("Task is updated")
+            alert(data.message)
+            document.getElementById("edit-task-form").style.display="none"
+            fetchdata()
+        }).catch((error) => {
+            console.log("couldn't delete the task")
+            alert(error)
+            console.log(error)
+        })
+})
