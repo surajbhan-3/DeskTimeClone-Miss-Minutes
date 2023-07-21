@@ -255,7 +255,32 @@ taskRoute.delete('/:id',role(["Admin", "Manager"]), async (req, res) => {
 });
 
 
+// update
+taskRoute.patch('/:id', role(["Employee"]), async (req, res) => {
+  try {
+    const taskId = req.params.id;
+    const { status } = req.body;
 
+    const task = await TaskModel.findById(taskId);
+
+    if (!task) {
+      return res.status(404).send({ "message": "Task not found." });
+    }
+
+    if (status === 'Completed') {
+      task.status = status;
+      task.endTime = Date.now();
+    } else if (status) {
+      task.status = status;
+    }
+    const updatedTask = await task.save();
+
+    res.status(200).send({ "message": "Task updated successfully.", task: updatedTask });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({ "message": error.message });
+  }
+});
 
 module.exports = { taskRoute }
 

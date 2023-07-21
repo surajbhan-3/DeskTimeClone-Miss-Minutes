@@ -142,8 +142,19 @@
                 <div>
                     <p id="back-btn2">&lt; Back To The All Task</p>
                 </div>
-
-    
+                <div id="EditTask">
+                   
+                    <form id="edit-task-form">
+                      <label for="status">Status:</label>
+                      <select id="status-edit" name="status" required>
+                        <option value="Not Started">Not Started</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                      </select><br><br>
+                      
+                      <input type="submit" value="Edit Task">
+                    </form>
+                </div>   
                 <div id="taskdetails">
                     <div class="taskdetails-card">
                         <h5 class="heading">

@@ -1,5 +1,11 @@
 // filter Dropdown function
 let token = localStorage.getItem("token")
+let userdata = JSON.parse(sessionStorage.getItem("user"))
+
+let createbtn = document.getElementById("create")
+if(userdata.role==="Employee"){
+  createbtn.style.display="none"
+}
 
 const filterDropdown = document.querySelector('#filter');
 filterDropdown.addEventListener('change', async() => {
