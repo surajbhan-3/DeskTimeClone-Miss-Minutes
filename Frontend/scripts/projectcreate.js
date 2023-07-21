@@ -13,6 +13,7 @@ form.addEventListener("submit",(e)=>{
         headers:{
             "Content-Type": "application/json",
              Authorization: token,
+             
         }
     })
     .then((res)=>res.json())
