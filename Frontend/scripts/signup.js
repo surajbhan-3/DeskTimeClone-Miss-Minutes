@@ -4,7 +4,7 @@ let usernameInput = document.getElementById("name");
 let passwordInput = document.getElementById("password");
 
 
-const url ="http://localhost:8080/user/signup"
+const url ="https://chat-backend-poised-slaved.onrender.com/user/signup"
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();

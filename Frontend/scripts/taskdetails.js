@@ -40,7 +40,7 @@ window.addEventListener("load", () => {
 
 async function fetchdata() {
     try {
-        let res = await fetch(`http://localhost:8080/task/${taskId}`, {
+        let res = await fetch(`https://chat-backend-poised-slaved.onrender.com/task/${taskId}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -80,7 +80,7 @@ async function fetchdata() {
         taskdetailtotaltime.innerText = totalTime+ "Hrs";
         
 
-        await fetch(`http://localhost:8080/user/${data.task.createdBy}`, {
+        await fetch(`https://chat-backend-poised-slaved.onrender.com/user/${data.task.createdBy}`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -93,7 +93,7 @@ async function fetchdata() {
             console.log(error)
         })
 
-        await fetch(`http://localhost:8080/user/${data.task.assignedTo}`, {
+        await fetch(`https://chat-backend-poised-slaved.onrender.com/user/${data.task.assignedTo}`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -118,7 +118,7 @@ async function fetchdata() {
 
 task1delete.addEventListener("click", async () => {
   console.log("hello")
-    await fetch(`http://localhost:8080/task/delete/${taskId}`, {
+    await fetch(`https://chat-backend-poised-slaved.onrender.com/task/delete/${taskId}`, {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',
