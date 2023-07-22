@@ -13,7 +13,7 @@ form.addEventListener("submit", (e) => {
     const email = emailInput.value;
     const password = passwordInput.value;
   
-    fetch(`http://localhost:8080/user/login`,{
+    fetch(`https://chat-backend-poised-slaved.onrender.com/user/login`,{
       method: "POST",
       body: JSON.stringify({email, password }),
       headers: {

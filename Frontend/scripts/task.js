@@ -43,7 +43,9 @@ window.addEventListener("load", async () => {
 let s
 async function fetchdata() {
     try {
+
         const res = await fetch(`http://localhost:8080/project/details/${projectid}`, {
+
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -87,7 +89,9 @@ async function fetchdata() {
 
 async function fetchdata1() {
     try {
+
         const res = await fetch(`http://localhost:8080/task/project/${projectid}`, {
+
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -141,7 +145,7 @@ function displayData(data) {
         const formattedDate = date.toLocaleString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
         CreatedOn.innerText = formattedDate;
 
-        await fetch(`http://localhost:8080/user/${element.createdBy}`, {
+        await fetch(`https://chat-backend-poised-slaved.onrender.com/user/${element.createdBy}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -154,7 +158,7 @@ function displayData(data) {
                 console.log(error);
             });
 
-        await fetch(`http://localhost:8080/user/${element.assignedTo}`, {
+        await fetch(`https://chat-backend-poised-slaved.onrender.com/user/${element.assignedTo}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -178,9 +182,10 @@ function displayData(data) {
     });
 }
 
+
 async function toggleDropdown3(createTaskform) {
     
-    const response = await fetch('http://localhost:8080/user/employee', {
+    const response = await fetch('https://chat-backend-poised-slaved.onrender.com/user/employee', {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `${token}`
@@ -230,7 +235,7 @@ formEl.addEventListener("submit", async (event) => {
       projectId 
     };
   console.log(requestBody)
-    const response = await fetch(`http://localhost:8080/task/create/${projectId}`, {
+    const response = await fetch(`https://chat-backend-poised-slaved.onrender.com/task/create/${projectId}`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -273,7 +278,7 @@ formEl.addEventListener("submit", async (event) => {
 
   projectdelete .addEventListener("click", () => {
 
-    fetch(`http://localhost:8080/task/${projectid}`, {
+    fetch(`https://chat-backend-poised-slaved.onrender.com/task/${projectid}`, {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',

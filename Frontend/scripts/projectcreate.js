@@ -7,12 +7,13 @@ form.addEventListener("submit",(e)=>{
     let description = document.getElementById("description").value;
     
 
-    fetch(`http://localhost:8080/project/create`,{
+    fetch(`https://chat-backend-poised-slaved.onrender.com/project/create`,{
         method:"POST",
         body:JSON.stringify({name,description}),
         headers:{
             "Content-Type": "application/json",
              Authorization: token,
+             
         }
     })
     .then((res)=>res.json())
