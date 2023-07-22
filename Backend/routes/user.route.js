@@ -29,7 +29,7 @@ userRoute.get("/:id",async(req,res)=>{
 userRoute.get("/get/:id",async(req,res)=>{
     const id = req.params.id;
     try {
-        const user = await UserModel.findOne({_id:id})
+        const user = await UserModel.findOne({_id:id}).populate("assignedProjects").populate("assignedTasks")
         res.status(200).send({"user":user})
     } catch (err) {
         res.send(err.message)
