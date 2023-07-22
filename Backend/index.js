@@ -29,11 +29,11 @@ app.use(cors())
 
 
 const Path=path.join(__dirname,"../Frontend")
-console.log(Path,"kdfjdkkk")
+
 
 app.use(express.static(Path+"/public"))
 
-console.log(Path,"dflsjkd")
+
 const server = http.createServer(app)
 app.get("/chat/frontend", async(req,res)=>{
  
@@ -135,7 +135,7 @@ app.get("/checktoken",auth,(req,res)=>{
 
 
 
-app.listen(process.env.port,async () =>{
+server.listen(process.env.port,async () =>{
    try {
     await connection;
     console.log("connected to the db")
