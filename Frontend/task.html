@@ -31,16 +31,8 @@
                             <span class="link">Dashboard</span>
                         </a>
                     </li>
-                    <li class="card">
-                        <a href="#">
-                            <div class="icon">
-                                <i class="fa fa-clock-o"></i>
-                            </div>
-                            <span class="link">My Desk Time</span>
-                        </a>
-                    </li>
                     <li class="card" id="project-page-btn">
-                        <a href="#">
+                        <a href="project.html">
                             <div class="icon">
                                 <i class="fa fa-tasks"></i>
                             </div>
@@ -136,6 +128,7 @@
                      <h4 id="title-1"></h4>
                      <div id="project-title-right">
                          <div class="create-task" onclick="toggleDropdown3(document.getElementById('createTaskform'))"> <span class="plus">+</span>New Task</div>
+                         <div class="Edit1">Edit Project</div>
                          <div class="Edit">Delete Project</div>
                      </div>
                  </div>
@@ -143,7 +136,18 @@
                  <div>
                      <p id="back-btn">&lt; Back To The All Projects</p>
                  </div>
-
+                 <div id="EditProject">
+                   
+                    <form id="edit-project-form">
+                      <label for="status">Status:</label>
+                      <select id="status-project" name="status" required>
+                        <option value="in progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                      </select><br><br>
+                      
+                      <input type="submit" value="Edit Project">
+                    </form>
+                </div> 
 
                  <div id="createTaskform" class="createTaskform">
                    
@@ -202,7 +206,7 @@
                      </div>
                      <div class="details-card">
                          <h5 class="heading">
-                             ESTIMATE TIME
+                             END DATE
                          </h5>
                          <p id="details-total-time">--</p>
                      </div>

@@ -1,125 +1,140 @@
-let projectid = localStorage.getItem("projectId") || " "
-
-
+// JavaScript code
+let projectid = localStorage.getItem("projectId") || " ";
 
 const user1 = JSON.parse(sessionStorage.getItem("user")) || "";
-let token = localStorage.getItem("token")
+let token = localStorage.getItem("token");
 
-let task = document.querySelector(".create-task")
+let taskData = [];
+let projectData = {};
 
-let title1 = document.getElementById("title-1")
-let createddate = document.getElementById("details-date")
-let detailsstatus = document.getElementById("details-status")
-let taskcount = document.getElementById("details-total-task")
-let employeecount = document.getElementById("details-total-employee")
-
-
-//  create taskform 
-
-const formEl = document.getElementById("create-task-form")
-const taskinputtitle = document.getElementById("task-form-title")
-const description = document.getElementById("description")
-const projectinputtitle = document.getElementById("project-title-task-form")
+let task = document.querySelector(".create-task");
+let title1 = document.getElementById("title-1");
+let createddate = document.getElementById("details-date");
+let enddate = document.getElementById("details-total-time");
+let detailsstatus = document.getElementById("details-status");
+let taskcount = document.getElementById("details-total-task");
+let employeecount = document.getElementById("details-total-employee");
+const formEl = document.getElementById("create-task-form");
+const taskinputtitle = document.getElementById("task-form-title");
+const description = document.getElementById("description");
+const projectinputtitle = document.getElementById("project-title-task-form");
 const assignBySelect = document.getElementById("assignby");
-const statusinput = document.getElementById("status")
+const statusinput = document.getElementById("status");
+let backbtn = document.getElementById("back-btn");
 
+backbtn.addEventListener("click", () => {
+    localStorage.removeItem("projectId");
+    localStorage.removeItem("projecttitle");
+    window.location.href = "./project.html";
+});
 
+// back-btn add ...
 
+window.addEventListener("load", async () => {
+    // Fetch project details, tasks, and employees data simultaneously
+    const [projectRes, taskRes, employeeRes] = await Promise.all([
+        fetchdata(),
+        fetchdata1(),
+        fetchdata2()
+    ]);
 
-
-let backbtn = document.getElementById("back-btn")
-
-backbtn.addEventListener("click",()=>{
-    localStorage.removeItem("projectId")
-    localStorage.removeItem("projecttitle")
-    window.location.href="./project.html"
-})
-
-// back-btn add 
-
-
-
-
-window.addEventListener("load", () => {
-    fetchdata()
-    fetchdata1()
-    fetchdata2()
-})
-
+    displayData(taskData);
+});
+let s
 async function fetchdata() {
     try {
-        let res = await fetch(`http://localhost:8080/project/details/${projectid}`, {
+        const res = await fetch(`http://localhost:8080/project/details/${projectid}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `${token}`
             },
-        })
-            .then((res) => res.json())
-            .then((data) => {
+        });
+        const data = await res.json();
 
-                title1.innerText = data.name
-                localStorage.setItem("projecttitle",data.name)
-                const startDate = new Date(data.timeTracking.startDate);
-                const formattedDate = startDate.toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "2-digit",
-                    year: "numeric"
-                });
+        title1.innerText = data.name;
+        localStorage.setItem("projecttitle", data.name);
+        const startDate = new Date(data.timeTracking.startDate);
+        if(data.timeTracking.endDate){
 
-                createddate.innerText = formattedDate;
-                detailsstatus.innerText = data.status;
-                taskcount.innerHTML = data.tasks.length
+            const endDate =  new Date(data.timeTracking.endDate)  ;
+            const formattedDate1 = endDate.toLocaleDateString("en-US", {
+                month: "short",
+                day: "2-digit",
+                year: "numeric",
+              });
+              enddate.innerText=formattedDate1;
+        }
+        const formattedDate = startDate.toLocaleDateString("en-US", {
+            month: "short",
+            day: "2-digit",
+            year: "numeric"
+        });
 
+        createddate.innerText = formattedDate;
+        detailsstatus.innerText = data.status;
+        s=data.status
+        taskcount.innerHTML = data.tasks.length;
 
-            })
+        // Store project data to be used in other functions
+        projectData = data;
 
+        return data;
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
-
-// /alltask
-
-
 
 async function fetchdata1() {
     try {
-        let res = await fetch(`http://localhost:8080/task/project/${projectid}`, {
+        const res = await fetch(`http://localhost:8080/task/project/${projectid}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `${token}`
             },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data)
-                displayData(data.data)
-            })
-
+        });
+        const data = await res.json();
+        taskData = data.data; // Store task data to be used in displayData function
+        return data;
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
 
-let tbodyEl = document.querySelector("tbody")
+async function fetchdata2() {
+    try {
+        const res = await fetch(`http://localhost:8080/task/${projectid}/users`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${token}`
+            },
+        });
+        const data = await res.json();
+        employeecount.innerText = data.assignedUsers;
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
- 
+// Display task data in the table
+let tbodyEl = document.querySelector("tbody");
 function displayData(data) {
     tbodyEl.innerHTML = "";
     data.forEach(async (element) => {
         let tr = document.createElement("tr");
-        tr.setAttribute("data-id", element._id); 
+        tr.setAttribute("data-id", element._id);
 
         let task = document.createElement("td");
         let CreatedOn = document.createElement("td");
         let Assignto = document.createElement("td");
         let Createdby = document.createElement("td");
         let button = document.createElement("button");
-        let Seedetails = document.createElement("td")
+        let Seedetails = document.createElement("td");
         button.innerText = "See Details";
-        button.className = "detailsbtn"
+        button.className = "detailsbtn";
         task.innerText = element.title;
 
         const date = new Date(element.startTime);
@@ -129,41 +144,31 @@ function displayData(data) {
         await fetch(`http://localhost:8080/user/${element.createdBy}`, {
             method: "GET",
             headers: {
-              "Content-Type": "application/json",
-              Authorization: `${token}`,
+                "Content-Type": "application/json",
+                Authorization: `${token}`,
             },
-          }).then(res => res.json())
-        .then(data => {
-            Createdby.innerText=data.user
-        }).catch((error) => {
-            console.log(error)
-        })
+        }).then(res => res.json())
+            .then(data => {
+                Createdby.innerText = data.user;
+            }).catch((error) => {
+                console.log(error);
+            });
 
         await fetch(`http://localhost:8080/user/${element.assignedTo}`, {
             method: "GET",
             headers: {
-              "Content-Type": "application/json",
-              Authorization: `${token}`,
+                "Content-Type": "application/json",
+                Authorization: `${token}`,
             },
-          }).then(res => res.json())
-        .then(data => {
-            Assignto.innerText=data.user
-        }).catch((error) => {
-            console.log(error)
-        })
+        }).then(res => res.json())
+            .then(data => {
+                Assignto.innerText = data.user;
+            }).catch((error) => {
+                console.log(error);
+            });
 
-
-
-
-
-
-
-
-
-
-button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             const taskId = this.parentNode.parentNode.getAttribute("data-id");
-          
             localStorage.setItem("taskId", taskId);
             window.location.href = "./taskdetails.html";
         });
@@ -172,39 +177,6 @@ button.addEventListener("click", function() {
         tbodyEl.append(tr);
     });
 }
-
-
-
-
-
-// employee 
-
-async function fetchdata2() {
-    try {
-        let res = await fetch(`http://localhost:8080/task/${projectid}/users`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${token}`
-            },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-
-                employeecount.innerText=data.assignedUsers
-            })
-
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-
-
-// have to work later//....
-// task.addEventListener("click", () => {
-    
-// })
 
 async function toggleDropdown3(createTaskform) {
     
@@ -296,6 +268,7 @@ formEl.addEventListener("submit", async (event) => {
   if (user1.role === "Employee") {
     task.style.display = "none"
     projectdelete.style.display="none"
+    document.querySelector(".Edit1").style.display="none"
 }
 
   projectdelete .addEventListener("click", () => {
@@ -322,4 +295,32 @@ formEl.addEventListener("submit", async (event) => {
         })
 
 })
-  
+document.querySelector(".Edit1").addEventListener("click",()=>{
+   
+    document.getElementById("edit-project-form").style.display="block"
+    document.getElementById("status-project").value=s
+})
+document.getElementById("edit-project-form").addEventListener("submit",(e)=>{
+    e.preventDefault()
+    let status = document.getElementById("status-project").value
+    console.log(status)
+    fetch(`http://localhost:8080/project/${projectid}`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${token}`
+        },body:JSON.stringify({status})
+    }).then(res => res.json())
+        .then(data => {
+            console.log(data)
+            console.log("project is updated")
+            alert(data.message)
+            document.getElementById("edit-project-form").style.display="none"
+            fetchdata()
+        }).catch((error) => {
+            console.log("couldn't delete the project")
+            alert(error)
+            console.log(error)
+        })
+    document.getElementById("edit-project-form").style.display="none"
+})

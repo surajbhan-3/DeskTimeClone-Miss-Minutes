@@ -28,6 +28,7 @@ form.addEventListener("submit", (e) => {
             emailInput.value = "";
             passwordInput.value = "";
             const user = {
+              id:data.user._id,
               name: data.user.name,
               role: data.user.role,
               assignedTasks: data.user.assignedTasks || [],
