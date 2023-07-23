@@ -42,7 +42,7 @@ window.addEventListener("load", () => {
 
 async function fetchdata() {
     try {
-        let res = await fetch(`https://desk-time-clone-app.onrender.com/task/${taskId}`, {
+        let res = await fetch(`https://desktime.onrender.com/task/${taskId}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -85,7 +85,7 @@ async function fetchdata() {
         taskdetailtotaltime.innerText = totalTime+ "Hrs";
         
 
-        await fetch(`https://desk-time-clone-app.onrender.com/user/${data.task.createdBy}`, {
+        await fetch(`https://desktime.onrender.com/user/${data.task.createdBy}`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -98,7 +98,7 @@ async function fetchdata() {
             console.log(error)
         })
 
-        await fetch(`https://desk-time-clone-app.onrender.com/user/${data.task.assignedTo}`, {
+        await fetch(`https://desktime.onrender.com/user/${data.task.assignedTo}`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -134,7 +134,7 @@ async function fetchdata() {
 
 task1delete.addEventListener("click", () => {
   
-     fetch(`https://desk-time-clone-app.onrender.com/task/delete/${taskId}`, {
+     fetch(`https://desktime.onrender.com/task/delete/${taskId}`, {
 
         method: "DELETE",
         headers: {
@@ -163,7 +163,7 @@ task1delete.addEventListener("click", () => {
 document.getElementById("edit-task-form").addEventListener("submit",(e)=>{
     e.preventDefault()
     let status = document.getElementById("status-edit").value
-    fetch(`https://desk-time-clone-app.onrender.com/task/${taskId}`, {
+    fetch(`https://desktime.onrender.com/task/${taskId}`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json',
