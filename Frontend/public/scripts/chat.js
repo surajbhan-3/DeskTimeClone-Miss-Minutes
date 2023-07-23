@@ -1,7 +1,7 @@
 const webs_server = "ws://localhost:4500"
 const railway_bakend = "https://nodejs-production-1836.up.railway.app/"
 
-const socket = io("http://localhost:8080/", { transports: ["websocket"] });
+const socket = io("https://desktime.onrender.com/", { transports: ["websocket"] });
 
 
 var username;

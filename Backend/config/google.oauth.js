@@ -18,7 +18,7 @@ passport.use(
 		{
             clientID: "684268903079-4n6nnl5360i6v7va7btk5nus59l7r4ui.apps.googleusercontent.com",
             clientSecret: "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",
-            callbackURL: "http://localhost:8080/auth/google/callback",
+            callbackURL: "https://desktime.onrender.com/auth/google/callback",
             passReqToCallback: true,
 		},
 		

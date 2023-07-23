@@ -7,7 +7,7 @@ form.addEventListener("submit",(e)=>{
     let description = document.getElementById("description").value;
     
 
-    fetch(`https://chat-backend-poised-slaved.onrender.com/project/create`,{
+    fetch(`https://desktime.onrender.com/project/create`,{
         method:"POST",
         body:JSON.stringify({name,description}),
         headers:{

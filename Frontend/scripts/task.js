@@ -44,7 +44,7 @@ let s
 async function fetchdata() {
     try {
 
-        const res = await fetch(`http://localhost:8080/project/details/${projectid}`, {
+        const res = await fetch(`https://desktime.onrender.com/project/details/${projectid}`, {
 
             method: "GET",
             headers: {
@@ -90,7 +90,7 @@ async function fetchdata() {
 async function fetchdata1() {
     try {
 
-        const res = await fetch(`http://localhost:8080/task/project/${projectid}`, {
+        const res = await fetch(`https://desktime.onrender.com/task/project/${projectid}`, {
 
             method: "GET",
             headers: {
@@ -108,7 +108,7 @@ async function fetchdata1() {
 
 async function fetchdata2() {
     try {
-        const res = await fetch(`http://localhost:8080/task/${projectid}/users`, {
+        const res = await fetch(`https://desktime.onrender.com/task/${projectid}/users`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -145,7 +145,7 @@ function displayData(data) {
         const formattedDate = date.toLocaleString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
         CreatedOn.innerText = formattedDate;
 
-        await fetch(`https://chat-backend-poised-slaved.onrender.com/user/${element.createdBy}`, {
+        await fetch(`https://desktime.onrender.com/user/${element.createdBy}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -158,7 +158,7 @@ function displayData(data) {
                 console.log(error);
             });
 
-        await fetch(`https://chat-backend-poised-slaved.onrender.com/user/${element.assignedTo}`, {
+        await fetch(`https://desktime.onrender.com/user/${element.assignedTo}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -185,7 +185,7 @@ function displayData(data) {
 
 async function toggleDropdown3(createTaskform) {
     
-    const response = await fetch('https://chat-backend-poised-slaved.onrender.com/user/employee', {
+    const response = await fetch('https://desktime.onrender.com/user/employee', {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -235,7 +235,7 @@ formEl.addEventListener("submit", async (event) => {
       projectId 
     };
   console.log(requestBody)
-    const response = await fetch(`https://chat-backend-poised-slaved.onrender.com/task/create/${projectId}`, {
+    const response = await fetch(`https://desktime.onrender.com/task/create/${projectId}`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -278,7 +278,7 @@ formEl.addEventListener("submit", async (event) => {
 
   projectdelete .addEventListener("click", () => {
 
-    fetch(`https://chat-backend-poised-slaved.onrender.com/task/${projectid}`, {
+    fetch(`https://desktime.onrender.com/task/${projectid}`, {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',
@@ -309,7 +309,7 @@ document.getElementById("edit-project-form").addEventListener("submit",(e)=>{
     e.preventDefault()
     let status = document.getElementById("status-project").value
     console.log(status)
-    fetch(`http://localhost:8080/project/${projectid}`, {
+    fetch(`https://desktime.onrender.com/project/${projectid}`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json',
