@@ -2,6 +2,18 @@
 
 Miss-Minutes is a collaborative project developed by a team of 5 members. It is a clone of the website called Desktimer, which is a desktop and mobile time tracking app for companies and freelancers.
 
+## Deployment
+
+The project has been deployed using the following platforms:
+
+- Frontend: Netlify
+  - URL: [Miss-Minutes](https://desk-time.netlify.app/)
+
+- Backend: Render
+  - URL: [Render](https://desktime.onrender.com/)
+- Api Documentation: Swagger
+  - URL : [Swagger](https://desktime.onrender.com/api-docs/) 
+
 ## Team Members
 
 - [Kanwarpal Singh](https://github.com/Kanwarpal-Singh)
@@ -32,17 +44,7 @@ The Miss-Minutes project includes the following features:
 - Admin panel
 - Fully responsive UI
 
-## Deployment
 
-The project has been deployed using the following platforms:
-
-- Frontend: Netlify
-  - URL: [Miss-Minutes](https://glittering-tiramisu-11dfcd.netlify.app/)
-
-- Backend: Render
-  - URL: [Render](https://desk-time.netlify.app/)
-- Api Documentation: Swagger
-  - URL : [Swagger](https://desktime.onrender.com/api-docs/) 
 ## Screenshots
 
 Here are some screenshots of the Miss-Minutes website:
