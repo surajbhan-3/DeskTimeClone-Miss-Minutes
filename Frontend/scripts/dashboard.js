@@ -64,7 +64,7 @@ const urlParams = new URLSearchParams(window.location.search)
   let accessToken = urlParams.get("accesstoken");
   
   if(userID && accessToken){
-    fetch(`http://localhost:8080/user/get/${userID}`)
+    fetch(`https://desk-time-clone-app.onrender.com/user/get/${userID}`)
     .then((res)=>res.json())
     .then((data)=>{
       dis.push(data.user)
@@ -112,7 +112,7 @@ const urlParams = new URLSearchParams(window.location.search)
     username.textContent = user.name
     userlogo.textContent = username.textContent.charAt(0).toUpperCase();
     let token = localStorage.getItem("token")
-    fetch(`http://localhost:8080/user/get/${user.id}`)
+    fetch(`https://desk-time-clone-app.onrender.com/user/get/${user.id}`)
     .then((res)=>res.json())
     .then((data)=>{
       console.log(data.user);
