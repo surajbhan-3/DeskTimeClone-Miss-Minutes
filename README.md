@@ -39,9 +39,10 @@ The project has been deployed using the following platforms:
 - Frontend: Netlify
   - URL: [Miss-Minutes](https://glittering-tiramisu-11dfcd.netlify.app/)
 
-- Backend: Cyclic
-  - URL: [cyclic](https://www.cyclic.sh/)
-
+- Backend: Render
+  - URL: [Render](https://desk-time.netlify.app/)
+- Api Documentation: Swagger
+  - URL : [Swagger](https://desktime.onrender.com/api-docs/) 
 ## Screenshots
 
 Here are some screenshots of the Miss-Minutes website:
