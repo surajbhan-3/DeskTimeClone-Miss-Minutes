@@ -6,6 +6,218 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const userRoute = express.Router()
 
+/**
+ * @swagger
+ * tags:
+ *   name: Users
+ *   description: API endpoints for managing User
+ */
+
+/**
+ * @swagger
+ * /user/employee:
+ *   get:
+ *     summary: Get all employees
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
+ */
+
+/**
+ * @swagger
+ * /user/{id}:
+ *   get:
+ *     summary: Get a user by ID
+ *     tags: [Users]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: User ID
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Invalid user ID
+ */
+
+/**
+ * @swagger
+ * /user/get/{id}:
+ *   get:
+ *     summary: Get a user with assigned projects and tasks by ID
+ *     tags: [Users]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: User ID
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserWithAssignments'
+ *       400:
+ *         description: Invalid user ID
+ */
+
+/**
+ * @swagger
+ * /user:
+ *   get:
+ *     summary: Get all users
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
+ */
+
+/**
+ * @swagger
+ * /user/signup:
+ *   post:
+ *     summary: Register a new user
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/NewUser'
+ *     responses:
+ *       200:
+ *         description: Registration success
+ *       400:
+ *         description: Error message (e.g., User already exists)
+ */
+
+/**
+ * @swagger
+ * /user/login:
+ *   post:
+ *     summary: Log in a user
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UserLogin'
+ *     responses:
+ *       200:
+ *         description: Login success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LoginResponse'
+ *       400:
+ *         description: Error message (e.g., Invalid credentials)
+ */
+
+/**
+ * @swagger
+ * /user/logout:
+ *   get:
+ *     summary: Log out a user
+ *     tags: [Users]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Logout success
+ *       400:
+ *         description: Error message (e.g., Token not provided)
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         _id:
+ *           type: string
+ *           description: User ID
+ *         name:
+ *           type: string
+ *           description: User name
+ *         email:
+ *           type: string
+ *           description: User email
+ *         role:
+ *           type: string
+ *           enum: [Admin, Manager, Employee]
+ *           description: User role
+ *         assignedTasks:
+ *           type: array
+ *           items:
+ *             type: string
+ *           description: List of assigned task IDs
+ *         assignedProjects:
+ *           type: array
+ *           items:
+ *             type: string
+ *           description: List of assigned Project IDs
+ *     NewUser:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *           description: User name
+ *         email:
+ *           type: string
+ *           description: User email
+ *         password:
+ *           type: string
+ *           description: User password
+ *     UserLogin:
+ *       type: object
+ *       properties:
+ *         email:
+ *           type: string
+ *           description: User email
+ *         password:
+ *           type: string
+ *           description: User password
+ *     LoginResponse:
+ *       type: object
+ *       properties:
+ *         msg:
+ *           type: string
+ *           description: Response message
+ *         accessToken:
+ *           type: string
+ *           description: JWT access token
+ *         refreshToken:
+ *           type: string
+ *           description: JWT refresh token
+ *         user:
+ *           $ref: '#/components/schemas/User'
+ */
 
 
 
