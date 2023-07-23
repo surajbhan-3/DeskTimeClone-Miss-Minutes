@@ -42,11 +42,11 @@ window.addEventListener("load", () => {
 
 async function fetchdata() {
     try {
-        let res = await fetch(`https://chat-backend-poised-slaved.onrender.com/task/${taskId}`, {
+        let res = await fetch(`http://localhost:8080/task/${taskId}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `${token}`
+                "Authorization": `Bearer ${token}`
             },
         })
         let data = await res.json();
@@ -85,11 +85,11 @@ async function fetchdata() {
         taskdetailtotaltime.innerText = totalTime+ "Hrs";
         
 
-        await fetch(`https://chat-backend-poised-slaved.onrender.com/user/${data.task.createdBy}`, {
+        await fetch(`http://localhost:8080/user/${data.task.createdBy}`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `${token}`,
+              Authorization: `Bearer ${token}`,
             },
           }).then(res => res.json())
         .then(data => {
@@ -98,11 +98,11 @@ async function fetchdata() {
             console.log(error)
         })
 
-        await fetch(`https://chat-backend-poised-slaved.onrender.com/user/${data.task.assignedTo}`, {
+        await fetch(`http://localhost:8080/user/${data.task.assignedTo}`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `${token}`,
+              Authorization: `Bearer ${token}`,
             },
           }).then(res => res.json())
         .then(data => {
@@ -139,7 +139,7 @@ task1delete.addEventListener("click", () => {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `${token}`
+            Authorization: `Bearer ${token}`
         }
     }).then(res => res.json())
         .then(data => {
@@ -167,7 +167,7 @@ document.getElementById("edit-task-form").addEventListener("submit",(e)=>{
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `${token}`
+            Authorization: `Bearer ${token}`
         },body:JSON.stringify({status})
     }).then(res => res.json())
         .then(data => {

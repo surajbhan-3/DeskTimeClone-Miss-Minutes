@@ -11,11 +11,11 @@ const filterDropdown = document.querySelector('#filter');
 filterDropdown.addEventListener('change', async() => {
   const filterOption = filterDropdown.value
   try {
-    let res = await fetch(`https://chat-backend-poised-slaved.onrender.com/project/`, {
+    let res = await fetch(`http://localhost:8080/project/`, {
       method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `${token}`
+      "Authorization": `Bearer ${token}`
     },
   })
     .then((res) => res.json())
@@ -55,11 +55,11 @@ let search = document.getElementById("search")
 let searchbtn = document.getElementById("searchbtn")
 searchbtn.addEventListener("click",async()=>{
   try {
-    let res = await fetch(`https://chat-backend-poised-slaved.onrender.com/project/searchProject/${search.value}`, {
+    let res = await fetch(`http://localhost:8080/project/searchProject/${search.value}`, {
       method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `${token}`
+      "Authorization": `Bearer ${token}`
     },
   })
     .then((res) => res.json())
@@ -75,18 +75,14 @@ searchbtn.addEventListener("click",async()=>{
   }
 })
 
-// token which is stored in local storage
-// let token = localStorage.getItem("token") || ""
-// console.log(token)
-// window onload function 
+
 const total_projects_num = document.getElementById("total_projects_num")
 const in_progress_num = document.getElementById("in_progress_num")
 const completed_num = document.getElementById("completed_num")
 const teams_num = document.getElementById("teams_num")
 const employess_num = document.getElementById("employess_num")
 const averagetasks_num = document.getElementById("averagetasks_num")
-// ===> fetch function
-// let employees = 0;
+
 
 window.addEventListener("load",()=>{
     fetchdata()
@@ -95,11 +91,11 @@ window.addEventListener("load",()=>{
 
 async function fetchdata() {
     try {
-      let res = await fetch(`https://chat-backend-poised-slaved.onrender.com/project/`, {
+      let res = await fetch(`http://localhost:8080/project/`, {
         method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `${token}`
+        "Authorization": `Bearer ${token}`
       },
     })
       .then((res) => res.json())
@@ -196,7 +192,7 @@ async function displaytables(data){
 
 async function getemp(emp){
   try {
-    await fetch(`https://chat-backend-poised-slaved.onrender.com/user/employee`,{
+    await fetch(`http://localhost:8080/user/employee`,{
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -219,7 +215,7 @@ async function getemp(emp){
 
 async function getuser(id){
     let name ;
-    await fetch(`https://chat-backend-poised-slaved.onrender.com/user/${id}`,{
+    await fetch(`http://localhost:8080/user/${id}`,{
       method: "GET",
       headers: {
         "Content-Type": "application/json",

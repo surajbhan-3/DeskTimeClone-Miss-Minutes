@@ -11,7 +11,7 @@ const links = document.querySelectorAll('.link');
 
 let dis= []
 let cproject 
-let ttask
+let ctask
 let intask
 let nstask
 
@@ -121,7 +121,25 @@ const urlParams = new URLSearchParams(window.location.search)
           return el
         }
       })
+      let ct = data.user.assignedTasks.filter((el)=>{
+        if(el.status==="Completed"){
+          return el
+        }
+      })
+      let it = data.user.assignedTasks.filter((el)=>{
+        if(el.status==="In Progress"){
+          return el
+        }
+      })
+      let nst = data.user.assignedTasks.filter((el)=>{
+        if(el.status==="Not Started"){
+          return el
+        }
+      })
       cproject=c.length
+      ctask=ct.length
+      intask=it.length
+      nstask=nst.length
       dis.push(data.user)
       displayuser(dis)
     })
@@ -144,25 +162,13 @@ function toggleDropdown1(dropdown1) {
 const logout = document.getElementById("logout")
 
 logout.addEventListener("click",()=>{
-  // fetch(`http://localhost:8080/user/logout`,{
-  //   method: "GET",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     "Authorization": `${token}`
-  //   },
-  // })
-  // .then((res) => res.json())
-  // .then((data) => {
     username = "";
     userlogo.textContent = "";
     sessionStorage.clear(); 
     localStorage.clear();
     window.location.href = "./index.html";
   })
-  // .catch((err)=>{
-  //   console.log(err);
-  // });    
-// })
+  
 
 const dashboard_page = document.getElementById("dashboard-page-btn")
 const project_page = document.getElementById("project-page-btn");

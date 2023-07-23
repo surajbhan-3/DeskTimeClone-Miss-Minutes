@@ -5,7 +5,7 @@ const {BlacklistModel} = require("../models/blacklist.model")
 
 const auth = async (req, res, next) => {
     try {
-      const token = req.headers.authorization;
+      const token = req.headers.authorization.split(" ")[1];
       if (!token) return res.status(401).send({ msg: "Token not found" });
       const isBlacklisted = await BlacklistModel.findOne({ token: token });
       if (isBlacklisted)

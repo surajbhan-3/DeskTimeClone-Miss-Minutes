@@ -7,7 +7,8 @@ const { taskRoute } = require("./routes/task.route");
 const { auth } = require("./middlewares/auth");
 const { projectRoute } = require("./routes/project.route");
 const {UserModel}=require("./models/user.model");
-
+const swaggerJSdoc=require("swagger-jsdoc")
+const swaggerUi=require("swagger-ui-express")
 const passport = require("./config/google.oauth")
 const fs=require("fs")
 const http = require('http');
@@ -27,6 +28,38 @@ app.use(express.json());
 app.use(cookieParser())
 app.use(cors())
 
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "DeskTime",
+      version: "1.0.0"
+    },
+    servers: [
+      {
+        url: "http://localhost:8080/"
+      }
+    ],
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT"
+        }
+      }
+    },
+    security: [
+      {
+        BearerAuth: []
+      }
+    ]
+  },
+  apis: ["./routes/*.js"]
+};
+
+  const swaggerSpec=swaggerJSdoc(options)
+  app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(swaggerSpec))
 
 const Path=path.join(__dirname,"../Frontend")
 
@@ -95,7 +128,6 @@ app.get(
      session: false,
    }),async (req, res) => {
 
-      console.log(req.user._id,req.user.role)
       const accessToken = jwt.sign({UserId:`${req.user._id}`,role:`${req.user.role}`},"name",{expiresIn:"3h"})
  
       const user = req.user

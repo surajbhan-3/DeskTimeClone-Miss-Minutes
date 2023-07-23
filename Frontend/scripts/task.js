@@ -49,7 +49,7 @@ async function fetchdata() {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `${token}`
+                "Authorization": `Bearer ${token}`
             },
         });
         const data = await res.json();
@@ -95,7 +95,7 @@ async function fetchdata1() {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `${token}`
+                "Authorization": `Bearer ${token}`
             },
         });
         const data = await res.json();
@@ -112,7 +112,7 @@ async function fetchdata2() {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `${token}`
+                "Authorization": `Bearer ${token}`
             },
         });
         const data = await res.json();
@@ -149,7 +149,7 @@ function displayData(data) {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `${token}`,
+                Authorization: `Bearer ${token}`,
             },
         }).then(res => res.json())
             .then(data => {
@@ -162,7 +162,7 @@ function displayData(data) {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `${token}`,
+                Authorization: `Bearer ${token}`,
             },
         }).then(res => res.json())
             .then(data => {
@@ -188,7 +188,7 @@ async function toggleDropdown3(createTaskform) {
     const response = await fetch('https://chat-backend-poised-slaved.onrender.com/user/employee', {
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `${token}`
+            'Authorization': `Bearer ${token}`
         }
     });
     const employees = await response.json();
@@ -239,7 +239,7 @@ formEl.addEventListener("submit", async (event) => {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `${token}`
+        'Authorization': `Bearer ${token}`
     },
       body: JSON.stringify(requestBody)
     });
@@ -282,7 +282,7 @@ formEl.addEventListener("submit", async (event) => {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `${token}`
+            'Authorization': `Bearer ${token}`
         }
     }).then(res => res.json())
         .then(data => {
@@ -313,7 +313,7 @@ document.getElementById("edit-project-form").addEventListener("submit",(e)=>{
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `${token}`
+            Authorization: `Bearer ${token}`
         },body:JSON.stringify({status})
     }).then(res => res.json())
         .then(data => {
