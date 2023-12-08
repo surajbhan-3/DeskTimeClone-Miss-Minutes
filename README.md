@@ -7,7 +7,7 @@ Miss-Minutes is a collaborative project developed by a team of 5 members. It is 
 The project has been deployed using the following platforms:
 
 - Frontend: Netlify
-  - URL: [Miss-Minutes](https://desk-time.netlify.app/)
+  - URL: [Miss-Minutes](https://desttime-time-management-app.netlify.app/)
 
 - Backend: Render
   - URL: [Render](https://desktime.onrender.com/)
