@@ -1,6 +1,6 @@
 # [Miss-Minutes](https://glittering-tiramisu-11dfcd.netlify.app/)
 
-Miss-Minutes is a collaborative project developed by a team of 5 members. It is a clone of the website called Desktimer, which is a desktop and mobile time tracking app for companies and freelancers.
+Miss-Minutes is a collaborative project developed by a team of 5 members. It is a clone of the website called Desktimer, which is a desktop and mobile time tracking app for companies and freelancers. 
 
 ## Deployment
 
